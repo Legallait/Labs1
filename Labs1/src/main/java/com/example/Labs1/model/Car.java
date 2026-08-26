@@ -18,6 +18,7 @@ public class Car {
         this.price = price;
         this.rented = false;
     }
+    public Car(){}
 
 
     public Car(String plateNumber, String brand, double price, Dates rentDate) {
