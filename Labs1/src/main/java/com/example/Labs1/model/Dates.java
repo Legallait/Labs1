@@ -1,4 +1,4 @@
-package com.example.Labs1;
+package com.example.Labs1.model;
 
 public class Dates {
     private String begin;

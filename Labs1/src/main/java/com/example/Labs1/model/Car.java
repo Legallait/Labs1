@@ -1,4 +1,4 @@
-package com.example.Labs1;
+package com.example.Labs1.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,7 +20,6 @@ public class Car {
     }
 
 
-
     public Car(String plateNumber, String brand, double price, Dates rentDate) {
         this.plateNumber = plateNumber;
         this.brand = brand;
@@ -29,7 +28,7 @@ public class Car {
         this.rentDate = rentDate;
     }
 
-        @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String message;
 
     public String getMessage() {
