@@ -1,5 +1,6 @@
 package com.example.Labs1.Controller;
 
+import com.example.Labs1.Service.CarNotFoundException;
 import com.example.Labs1.model.Car;
 import com.example.Labs1.model.Dates;
 import com.example.Labs1.Service.CarService;
@@ -7,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class CarController {
@@ -17,6 +20,14 @@ public class CarController {
     @Autowired
     public CarController(CarService carService) {
         this.carService = carService;
+    }
+
+    @ExceptionHandler(CarNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleCarNotFound(CarNotFoundException e) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", e.getMessage());
+        return response;
     }
 
     @GetMapping("/cars")
