@@ -1,4 +1,4 @@
-package com.example.Labs1.Service;
+package com.example.Labs1.service;
 
 import com.example.Labs1.model.Car;
 import com.example.Labs1.model.Dates;

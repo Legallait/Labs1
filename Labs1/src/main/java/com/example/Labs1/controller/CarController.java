@@ -1,9 +1,9 @@
-package com.example.Labs1.Controller;
+package com.example.Labs1.controller;
 
-import com.example.Labs1.Service.CarNotFoundException;
+import com.example.Labs1.service.CarNotFoundException;
 import com.example.Labs1.model.Car;
 import com.example.Labs1.model.Dates;
-import com.example.Labs1.Service.CarService;
+import com.example.Labs1.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
