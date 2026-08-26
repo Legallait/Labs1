@@ -1,5 +1,7 @@
 package com.example.Labs1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,24 +42,18 @@ public class CarController {
                 if (rent) {
                     car.setRented(true);
                     car.setRentalDates(dates);
-                    System.out.println("Location du " + dates.getBegin() + " au " + dates.getEnd());
+                    car.setMessage("Voiture louée avec succès");
+                    if (dates != null) {
+                        System.out.println("Location du " + dates.getBegin() + " au " + dates.getEnd());
+                    }
                 } else {
                     car.setRented(false);
                     car.setRentalDates(null);
+                    car.setMessage("Voiture rendue avec succès");
                 }
                 return car;
             }
         }
         throw new Exception("Car not found or not available: " + plateNumber);
-    }
-
-    @PutMapping(value = "/cars/{plateNumber}")
-    public void rent(@PathVariable("plateNumber") String plateNumber, @RequestParam(value = "rent", required = true) boolean rent,
-            @RequestBody Dates dates) {
-        for (Car car : cars) {
-            if (car.getPlateNumber().equals(plateNumber)) {
-
-            }
-        }
     }
 }

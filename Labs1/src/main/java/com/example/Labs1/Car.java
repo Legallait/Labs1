@@ -1,12 +1,18 @@
 package com.example.Labs1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class Car {
     private String plateNumber;
     private String brand;
     private double price;
     private boolean rented;
+
+    @JsonIgnore
     private Dates rentDate;
-    public Car(String plateNumber, String brand, double price){
+
+    public Car(String plateNumber, String brand, double price) {
         this.plateNumber = plateNumber;
         this.brand = brand;
         this.price = price;
@@ -14,15 +20,24 @@ public class Car {
     }
 
 
-    public Car() {
-    }
 
-    public Car(String plateNumber, String brand, double price, Dates rentDate ) {
+    public Car(String plateNumber, String brand, double price, Dates rentDate) {
         this.plateNumber = plateNumber;
         this.brand = brand;
         this.price = price;
         this.rented = false;
         this.rentDate = rentDate;
+    }
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getPlateNumber() {
@@ -60,6 +75,7 @@ public class Car {
     public Dates getRentDate() {
         return rentDate;
     }
+
     public void setRentalDates(Dates rentDate) {
         this.rentDate = rentDate;
     }
