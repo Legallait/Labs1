@@ -27,15 +27,15 @@ public class CarController {
 
     @GetMapping("/cars/{plateNumber}")
     @ResponseStatus(HttpStatus.OK)
-    public Car aCar(@PathVariable("plateNumber") String plateNumber) throws Exception {
+    public Car aCar(@PathVariable("plateNumber") String plateNumber) {
         return carService.getCarByPlateNumber(plateNumber);
     }
 
     @PutMapping("/cars/{plateNumber}")
     @ResponseStatus(HttpStatus.OK)
     public Car rentCar(@PathVariable("plateNumber") String plateNumber,
-                        @RequestParam(value = "rent", required = true) boolean rent,
-                        @RequestBody(required = false) Dates dates) throws Exception {
+                       @RequestParam(value = "rent", required = true) boolean rent,
+                       @RequestBody(required = false) Dates dates) {
         if (rent) {
             return carService.rentCar(plateNumber, dates);
         } else {

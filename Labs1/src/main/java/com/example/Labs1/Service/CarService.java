@@ -8,9 +8,9 @@ import java.util.List;
 public interface CarService {
     List<Car> getUnrentedCars();
 
-    Car getCarByPlateNumber(String plateNumber) throws Exception;
+    Car getCarByPlateNumber(String plateNumber) throws CarNotFoundException;
 
-    Car rentCar(String plateNumber, Dates dates) throws Exception;
+    Car rentCar(String plateNumber, Dates dates);
 
-    Car returnCar(String plateNumber) throws Exception;
+    Car returnCar(String plateNumber);
 }
