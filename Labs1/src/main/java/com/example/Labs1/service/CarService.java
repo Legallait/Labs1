@@ -14,5 +14,5 @@ public interface CarService {
 
     Car returnCar(String plateNumber);
 
-    Car addCar(Car car);
+    Car addCar(Car car) throws  CarAlreadyExistsException;
 }

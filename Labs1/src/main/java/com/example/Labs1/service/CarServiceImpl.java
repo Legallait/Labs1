@@ -48,6 +48,9 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Car addCar(Car car) {
+        if (carRepository.findByPlateNumber(car.getPlateNumber()).isPresent()) {
+            throw new CarAlreadyExistsException(car.getPlateNumber());
+        }
         return carRepository.save(car);
     }
 }

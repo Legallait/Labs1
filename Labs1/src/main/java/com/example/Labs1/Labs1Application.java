@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 public class Labs1Application {
@@ -15,6 +16,7 @@ public class Labs1Application {
     }
 
     @Bean
+    @Profile("!test")
     public CommandLineRunner demo(CarService carService) {
         return (args) -> {
             carService.addCar(new Car("11AA22", "Ferrari", 100));

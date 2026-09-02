@@ -2,6 +2,7 @@ package com.example.Labs1;
 
 import com.example.Labs1.model.Car;
 import com.example.Labs1.model.Dates;
+import com.example.Labs1.service.CarAlreadyExistsException;
 import com.example.Labs1.service.CarNotFoundException;
 import com.example.Labs1.service.CarRepository;
 import com.example.Labs1.service.CarServiceImpl;
@@ -84,5 +85,24 @@ class CarServiceImplTest {
         assertThat(result.isRented()).isFalse();
         assertThat(result.getMessage()).isEqualTo("Voiture rendue avec succès");
         verify(carRepository).save(peugeot);
+    }
+
+    @Test
+    void addCarSavesCarViaRepository() {
+        when(carRepository.findByPlateNumber("11AA22")).thenReturn(Optional.empty());
+        when(carRepository.save(ferrari)).thenReturn(ferrari);
+
+        Car result = carService.addCar(ferrari);
+
+        assertThat(result).isEqualTo(ferrari);
+        verify(carRepository).save(ferrari);
+    }
+
+    @Test
+    void addCarThrowsWhenPlateNumberAlreadyExists() {
+        when(carRepository.findByPlateNumber("11AA22")).thenReturn(Optional.of(ferrari));
+
+        assertThatThrownBy(() -> carService.addCar(ferrari))
+                .isInstanceOf(CarAlreadyExistsException.class);
     }
 }
