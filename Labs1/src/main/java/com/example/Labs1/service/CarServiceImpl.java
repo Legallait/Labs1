@@ -2,34 +2,29 @@ package com.example.Labs1.service;
 
 import com.example.Labs1.model.Car;
 import com.example.Labs1.model.Dates;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class CarServiceImpl implements CarService {
 
-    private List<Car> cars = new ArrayList<>();
-
-    public CarServiceImpl() {
-        cars.add(new Car("11AA22", "Ferrari", 100));
-        cars.add(new Car("33BB44", "Peugeot", 40));
-        cars.add(new Car("55CC66", "Renault", 35));
-    }
+    @Autowired
+    private CarRepository carRepository;
 
     @Override
     public List<Car> getUnrentedCars() {
-        return cars.stream().filter(car -> !car.isRented()).collect(Collectors.toList());
+        return StreamSupport.stream(carRepository.findAll().spliterator(), false)
+                .filter(car -> !car.isRented())
+                .collect(Collectors.toList());
     }
 
     @Override
     public Car getCarByPlateNumber(String plateNumber) {
-
-        return cars.stream()
-                .filter(car -> car.getPlateNumber().equals(plateNumber))
-                .findFirst()
+        return carRepository.findByPlateNumber(plateNumber)
                 .orElseThrow(() -> new CarNotFoundException(plateNumber));
     }
 
@@ -39,7 +34,7 @@ public class CarServiceImpl implements CarService {
         car.setRented(true);
         car.setRentalDates(dates);
         car.setMessage("Voiture louée avec succès");
-        return car;
+        return carRepository.save(car);
     }
 
     @Override
@@ -48,6 +43,6 @@ public class CarServiceImpl implements CarService {
         car.setRented(false);
         car.setRentalDates(null);
         car.setMessage("Voiture rendue avec succès");
-        return car;
+        return carRepository.save(car);
     }
 }
