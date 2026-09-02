@@ -18,7 +18,7 @@ public class Car {
         this.price = price;
         this.rented = false;
     }
-    
+
     public Car(){}
 
 
