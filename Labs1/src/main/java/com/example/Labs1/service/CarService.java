@@ -13,4 +13,6 @@ public interface CarService {
     Car rentCar(String plateNumber, Dates dates);
 
     Car returnCar(String plateNumber);
+
+    Car addCar(Car car);
 }

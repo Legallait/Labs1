@@ -45,4 +45,9 @@ public class CarServiceImpl implements CarService {
         car.setMessage("Voiture rendue avec succès");
         return carRepository.save(car);
     }
+
+    @Override
+    public Car addCar(Car car) {
+        return carRepository.save(car);
+    }
 }
