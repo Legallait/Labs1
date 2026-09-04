@@ -4,12 +4,14 @@ import com.example.Labs1.model.Car;
 import com.example.Labs1.model.Dates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@Transactional(readOnly = true)
 public class CarServiceImpl implements CarService {
 
     @Autowired
@@ -29,6 +31,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional
     public Car rentCar(String plateNumber, Dates dates) {
         Car car = getCarByPlateNumber(plateNumber);
         car.setRented(true);
@@ -38,6 +41,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional
     public Car returnCar(String plateNumber) {
         Car car = getCarByPlateNumber(plateNumber);
         car.setRented(false);
@@ -47,6 +51,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional
     public Car addCar(Car car) {
         if (carRepository.findByPlateNumber(car.getPlateNumber()).isPresent()) {
             throw new CarAlreadyExistsException(car.getPlateNumber());
